@@ -1,58 +1,60 @@
 import styled from "styled-components";
+import { IoIosArrowUp } from "react-icons/io";
 
 import whiteSpotifyLogo from "../assets/logo-white.png";
 import userAvatarImg from "../assets/user-avatar.jpg";
 
 function Header() {
   return (
-    <div clasName="">
+    <Container>
       <div className="wrapper">
         <img className="logo" src={whiteSpotifyLogo} alt="logo" />
-        <div className="navigation">
-          <div className="navbar">
-            <ul>
-              <li>
-                <a href="/">Premium</a>
-              </li>
-              <li>
-                <a href="/">Suporte</a>
-              </li>
-              <li>
-                <a href="/">Baixar</a>
-              </li>
+        <div className="flex-row items-center">
+          <div className="flex-row medium-gap content-center items-center">
+            <ul className="flex-row small-gap">
+              <Link name="Premium" />
+              <Link name="Suporte" />
+              <Link name="Baixar" />
             </ul>
-            <div className="profile">
+            <Line />
+            <div className="profile small-gap">
               <img
                 src={userAvatarImg}
                 alt="user avatar"
                 width="40"
                 height="40"
               />
-              <p>Perfil</p>
+              <A className="flex-row mini-gap">
+                <p>Perfil</p>
+                <IoIosArrowUp />
+              </A>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </Container>
   );
 }
+
+const LinkContainer = styled.li`
+  display: flex;
+  align-items: center;
+`;
 
 const Container = styled.header`
   height: 80px;
   width: 100%;
 
   display: flex;
-  /* align-items: center; */
   justify-content: center;
 
-  background-color: ${({ theme }) => theme.colors.black};
+  background-color: ${({ theme }) => theme.colors.opacityBlack};
 
   .wrapper {
     max-width: 900px;
 
     width: 100%;
     height: 100%;
-    padding: 0 20px;
 
     display: flex;
     justify-content: space-between;
@@ -63,32 +65,75 @@ const Container = styled.header`
       width: 140px;
     }
 
-    ul {
+    .navbar ul {
       display: flex;
       flex-direction: row;
       gap: 32px;
       align-items: center;
-
-      li {
-        .separator {
-          width: 2px;
-          height: 100%;
-          background-color: ${({ theme }) => theme.colors.white};
-        }
-
-        .profile {
-          display: flex;
-          flex-direction: row;
-          gap: 5px;
-          align-items: center;
-
-          img {
-            border-radius: 50%;
-          }
-        }
-      }
     }
   }
+
+  .profile {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+
+    img {
+      border-radius: 50%;
+    }
+  }
+
+  .flex-row {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .items-center {
+    align-items: center;
+  }
+
+  .content-center {
+    justify-content: center;
+  }
+
+  .mini-gap {
+    gap: 8px;
+  }
+
+  .small-gap {
+    gap: 16px;
+  }
+
+  .medium-gap {
+    gap: 32px;
+  }
+`;
+
+const Link = ({ name }) => (
+  <LinkContainer>
+    <A className="text-white" href="/">
+      {name}
+    </A>
+  </LinkContainer>
+);
+
+const A = styled.a`
+  color: ${({ theme }) => theme.colors.white};
+  text-decoration: none;
+  font-size: 13px;
+  font-family: ${({ theme }) => theme.fontFamily};
+  font-weight: 700;
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.green};
+  }
+`;
+
+const Line = styled.div`
+  width: 1px;
+  height: 16px;
+  background-color: #fff;
 `;
 
 export default Header;
